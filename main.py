@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import *
 import sys
-from home_view import HomeView
 from cs2_view_window import CS2ViewWindow
 
 
