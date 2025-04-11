@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
-from pages import *
-from CS2ViewWidgets import *
+from view import *
+from view.widgets import *
 
 class CS2ViewWindow(QMainWindow):
 
