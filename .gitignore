@@ -1,5 +1,9 @@
-__pycache__/*
+/__pycache__/*
+view/__pycache__/*
+view/widgets/__pycache__/*
+styles/__pycache__/*
 .idea/*
 *.dem
 .vscode
 .DS_Store
+

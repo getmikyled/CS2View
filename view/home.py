@@ -1,23 +1,46 @@
+from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import *
+from styles import CS2ViewStyles
+from .widgets import Header, ButtonPanel, Panel
 
 class Home(QWidget):
 
     def __init__(self):
         super().__init__()
 
+        # Set widget properties
+        self.setObjectName('Page')
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.main_layout = QVBoxLayout(self)
-        self.main_layout.setContentsMargins(0, 0, 0, 0)
-        self.main_layout.setSpacing(0)
+        self.setContentsMargins(10, 10, 10, 10)
 
-        self.main_container = self.create_main_container()
-        self.main_layout.addWidget(self.main_container)
+        # Set styles
+        self.setAutoFillBackground(True)
+        palette = QPalette()
+        palette.setColor(QPalette.Window, QColor(CS2ViewStyles.SECONDARY_COLOR))
+        self.setPalette(palette)
 
-    def create_main_container(self) -> QWidget:
-        # Main Container Widget
-        mainContainer = QWidget()
-        mainContainer.setStyleSheet("background-color: #3C3C3C;")
+        # Create and set layout
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
 
-        mainLayout = QVBoxLayout(mainContainer)
+        # Create panel container
+        panelContainer = QWidget()
+        panelLayout = QHBoxLayout()
+        panelContainer.setLayout(panelLayout)
 
-        return mainContainer
+        # Create Button panel
+        self.button_panel = ButtonPanel()
+        self.button_panel.create_button("Upload New CS2 '.demo' File")
+        self.button_panel.create_button("Open Recent '.demo' File")
+        self.button_panel.create_button("Compare Two CS2 '.demo' File")
+
+        # NOTE: TO BE REPLACED W/ STACK WIDGET
+        self.other_panel = Panel()
+
+        # Add widgets to layouts
+        layout.addWidget(Header())
+        layout.addWidget(panelContainer)
+        panelLayout.addWidget(self.button_panel)
+        panelLayout.addWidget(self.other_panel)

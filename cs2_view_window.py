@@ -1,7 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from view import *
-from view.widgets import *
+from view.widgets import TitleBar, Toolbar
+from styles import CS2ViewStyles
 
 class CS2ViewWindow(QMainWindow):
 
@@ -31,11 +32,18 @@ class CS2ViewWindow(QMainWindow):
         self.title_bar.on_close_window_button_clicked.connect(self.close) # self.close binded
         layout.addWidget(self.title_bar) # Add title bar widget to central layout
 
+        # Create Tool Bar
+        self.tool_bar = Toolbar()
+        layout.addWidget(self.tool_bar)
+
         # Create Widget Stack
         self.stack = QStackedWidget()
+        self.stack.setObjectName("Stack")
         self.stack.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.stack.setContentsMargins(10, 10, 10, 10)
         layout.addWidget(self.stack, stretch=1) # Add stack widget to central layout
 
         # Populate Widget Stack
         self.home = Home()
         self.stack.addWidget(self.home)
+        self.stack.setStyleSheet(CS2ViewStyles.STACK_STYLES)
