@@ -19,7 +19,7 @@ def get_adr(player_name=None, side=None):
         player_name: name of the player
         side: side to filter by (t, ct, all)
     '''
-    if side not in ['t', 'ct', 'all']:
+    if side not in ['t', 'ct', 'all', None]:
         raise ValueError(f'{side} is not a valid option, choose (t, ct, all)')
     
     req_adr = adr(dem.demo)
@@ -46,6 +46,8 @@ def get_kast(player_name=None, side=None, round=None):
         side: side to filter by (t, ct, all)
         round: game round to filter by
     '''
+    if side not in ['t', 'ct', 'all', None]:
+        raise ValueError(f'{side} is not a valid option, choose (t, ct, all)')
 
     req_kast = kast(dem.demo)
     req_kast = req_kast.drop('steamid')
@@ -74,6 +76,9 @@ def get_rating(player_name=None, side=None, round=None):
         side: side to filter by (t, ct, all)
         round: game round to filter by
     '''
+    if side not in ['t', 'ct', 'all', None]:
+        raise ValueError(f'{side} is not a valid option, choose (t, ct, all)')
+    
     req_rating = rating(dem.demo)
     req_rating = req_rating.drop('steamid')
     
@@ -89,9 +94,9 @@ def get_rating(player_name=None, side=None, round=None):
 
 # quick test
 if __name__ == '__main__':
-    rat = get_rating('ropz', 'all')
+    rat = get_rating('ropz')
     print(rat)
-    ka = get_kast('ropz', 'all')
+    ka = get_kast('ropz')
     print(ka)
-    ad = get_adr('ropz', 'all')
+    ad = get_adr('ropz')
     print(ad)
