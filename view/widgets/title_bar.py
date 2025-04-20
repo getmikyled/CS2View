@@ -16,7 +16,7 @@ class TitleBar(QWidget):
 
         # Set title bar styles
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.setFixedHeight(40)
+        self.setFixedHeight(CS2ViewStyles.TITLE_BAR_HEIGHT)
         self.setStyleSheet(f"background-color: {CS2ViewStyles.PRIMARY_COLOR};")
 
         # Create title bar layout

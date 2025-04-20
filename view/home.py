@@ -1,7 +1,11 @@
+from distutils.command.upload import upload
+
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import *
 from styles import CS2ViewStyles
-from .widgets import Header, ButtonPanel, Panel
+from .widgets import Header, ButtonPanel, Panel, StackedWidgetStateMachine, ContentPanel, FileSelector, StringField, \
+    BottomRightButton
+
 
 class Home(QWidget):
 
@@ -22,8 +26,8 @@ class Home(QWidget):
         # Create and set layout
         layout = QVBoxLayout()
         self.setLayout(layout)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        self.layout().setContentsMargins(0, 0, 0, 0)
+        self.layout().setSpacing(0)
 
         # Create panel container
         panelContainer = QWidget()
@@ -32,15 +36,47 @@ class Home(QWidget):
 
         # Create Button panel
         self.button_panel = ButtonPanel()
-        self.button_panel.create_button("Upload New CS2 '.demo' File")
-        self.button_panel.create_button("Open Recent '.demo' File")
-        self.button_panel.create_button("Compare Two CS2 '.demo' File")
+        self.button_panel.create_button("Upload New CS2 '.demo' File", lambda: self.stacked_widget_state_machine.set_widget(self.upload_demo_file_widget))
+        self.button_panel.create_button("Open Recent '.demo' File", lambda: self.stacked_widget_state_machine.set_widget(self.open_recent_demo_file_widget))
 
-        # NOTE: TO BE REPLACED W/ STACK WIDGET
-        self.other_panel = Panel()
+        # Create main panel
+        self.main_panel = Panel()
+
+        # Create stacked widget
+        self.stacked_widget_state_machine = StackedWidgetStateMachine()
+        self.main_panel.layout().addWidget(self.stacked_widget_state_machine)
+
+        # Populate stacked widget
+        self.empty_widget = QWidget()
+        self.stacked_widget_state_machine.addWidget(self.empty_widget)
+        self.upload_demo_file_widget = self.__create_upload_demo_file_widget()
+        self.stacked_widget_state_machine.addWidget(self.upload_demo_file_widget)
+        self.open_recent_demo_file_widget = self.__create_open_recent_demo_file_widget()
+        self.stacked_widget_state_machine.addWidget(self.open_recent_demo_file_widget)
 
         # Add widgets to layouts
-        layout.addWidget(Header())
-        layout.addWidget(panelContainer)
+        self.layout().addWidget(Header())
+        self.layout().addWidget(panelContainer)
         panelLayout.addWidget(self.button_panel)
-        panelLayout.addWidget(self.other_panel)
+        panelLayout.addWidget(self.main_panel)
+
+    def __create_upload_demo_file_widget(self) -> QWidget:
+        '''Creates and returns the Upload Demo File Widget'''
+        upload_demo_file_widget = ContentPanel("Upload New CS2 '.demo' File")
+
+        file_selector = FileSelector()
+        upload_demo_file_widget.panel.layout().addWidget(file_selector)
+
+        match_name = StringField(text='Match Name')
+        upload_demo_file_widget.panel.layout().addWidget(match_name)
+
+        upload_file_button = BottomRightButton(text='Upload File')
+        upload_demo_file_widget.panel.layout().addWidget(upload_file_button)
+
+        return upload_demo_file_widget
+
+    def __create_open_recent_demo_file_widget(self) -> QWidget:
+        '''Creates and returns the Upload Demo File Widget'''
+        open_recent_demo_file_widget = ContentPanel("Open Recent CS2 '.demo' File")
+
+        return open_recent_demo_file_widget

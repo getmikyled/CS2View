@@ -1,10 +1,7 @@
-from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import QPushButton, QSizePolicy
-from PyQt5.QtCore import Qt
 from .panel import Panel
 
 from styles import CS2ViewStyles
-
 
 class ButtonPanel(Panel):
 
@@ -28,4 +25,4 @@ class ButtonPanel(Panel):
         if onClickedFunc is not None:
             button.clicked.connect(onClickedFunc)
 
-        self.layout.addWidget(button)
+        self.layout().addWidget(button)
