@@ -50,11 +50,15 @@ class CS2ViewWindow(QMainWindow):
         home_widget_state.on_exited_signal.connect(lambda: self.tool_bar.menu_button.setVisible(True))
         self.stack.setStyleSheet(CS2ViewStyles.STACK_STYLES)
 
+        self.data_view = QWidget()
+        data_view_widget_state = self.stack.addWidget(self.data_view)
+        self.data_view.setObjectName("DataView")
+
         # Create Side Menu Bar
         # NOTE: CREATE LAST SO THAT ITS ON TOP
         self.menu = SlidingMenu(self.centralWidget())
         self.menu.setGeometry(CS2ViewStyles.MENU_OUT_POSITION)
         self.tool_bar.menu_button.clicked.connect(self.menu.trigger_slide_animation)
 
-        # Set the current widget
-        self.stack.set_widget(self.home)
+    def set_widget(self, widget):
+        self.stack.set_widget(widget)

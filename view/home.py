@@ -2,6 +2,7 @@ from distutils.command.upload import upload
 
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import *
+
 from styles import CS2ViewStyles
 from .widgets import Header, ButtonPanel, Panel, StackedWidgetStateMachine, ContentPanel, FileSelector, StringField, \
     BottomRightButton
@@ -64,14 +65,14 @@ class Home(QWidget):
         '''Creates and returns the Upload Demo File Widget'''
         upload_demo_file_widget = ContentPanel("Upload New CS2 '.demo' File")
 
-        file_selector = FileSelector()
-        upload_demo_file_widget.panel.layout().addWidget(file_selector)
+        self.file_selector = FileSelector()
+        upload_demo_file_widget.panel.layout().addWidget(self.file_selector)
 
-        match_name = StringField(text='Match Name')
-        upload_demo_file_widget.panel.layout().addWidget(match_name)
+        self.match_name = StringField(text='Match Name')
+        upload_demo_file_widget.panel.layout().addWidget(self.match_name)
 
-        upload_file_button = BottomRightButton(text='Upload File')
-        upload_demo_file_widget.panel.layout().addWidget(upload_file_button)
+        self.upload_file_button = BottomRightButton(text='Upload File')
+        upload_demo_file_widget.panel.layout().addWidget(self.upload_file_button)
 
         return upload_demo_file_widget
 
@@ -80,3 +81,6 @@ class Home(QWidget):
         open_recent_demo_file_widget = ContentPanel("Open Recent CS2 '.demo' File")
 
         return open_recent_demo_file_widget
+
+    def get_file_path_from_selector(self):
+        return self.file_selector.line_edit.text()

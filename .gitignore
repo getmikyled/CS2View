@@ -3,6 +3,7 @@ view/__pycache__/*
 view/widgets/__pycache__/*
 styles/__pycache__/*
 stats/__pycache__/
+model/__pycache__/*
 .idea/*
 *.dem
 .vscode
