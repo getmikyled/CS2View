@@ -91,12 +91,64 @@ def get_rating(player_name=None, side=None, round=None):
 
     return req_rating
 
+def get_round_stats():
+    '''
+    Returns a polars dataframe with columns
+        Round, Winner, Reason, Bomb Site
+    '''
+    df = dem.demo.rounds.select([
+       pl.col('round_num').alias('Round'), 
+       pl.col('winner').alias('Winner'),
+       pl.col('reason').alias('Reason'),
+       pl.col('bomb_site').alias('Bomb Site'),
+    ])
+    
+    winner = (
+        pl.when(pl.col("Winner") == "t") 
+          .then(pl.lit("Terrorists"))
+        .when(pl.col("Winner") == "ct") 
+          .then(pl.lit("Counter‑Terrorists"))
+        .otherwise(pl.col("Winner"))
+        .alias("Winner")
+    )
+
+    reason = (
+        pl.when(pl.col("Reason") == "t_killed")
+          .then(pl.lit("Terrorists Killed"))
+        .when(pl.col("Reason") == "ct_killed")
+          .then(pl.lit("Counter‑Terrorists Killed"))
+        .when(pl.col("Reason") == "bomb_exploded")
+          .then(pl.lit("Bomb Exploded"))
+        .otherwise(pl.col("Reason"))
+        .alias("Reason")
+    )
+
+    bomb_site = (
+        pl.when(pl.col("Bomb Site") == "bombsite_a")
+          .then(pl.lit("Bombsite A"))
+        .when(pl.col("Bomb Site") == "bombsite_b")
+          .then(pl.lit("Bombsite B"))
+        .when(pl.col("Bomb Site") == "not_planted")
+          .then(pl.lit("Not Planted"))
+        .otherwise(pl.col("Bomb Site"))
+        .alias("Bomb Site")
+    )
+
+    return df.with_columns([winner, reason, bomb_site])
+
+def get_player_kills():
+    pass
+    print(dem.demo.kills.columns)
+    return dem.demo.kills
+    
+    
 
 # quick test
 if __name__ == '__main__':
-    rat = get_rating('ropz')
-    print(rat)
-    ka = get_kast('ropz')
-    print(ka)
-    ad = get_adr('ropz')
-    print(ad)
+    # rat = get_rating()
+    # print(rat)
+    # ka = get_kast('ropz')
+    # print(ka)
+    # ad = get_adr('ropz')
+    # print(ad)
+    print(get_player_kills())

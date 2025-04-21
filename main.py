@@ -5,3 +5,4 @@ def main():
     CS2ViewController().initialize_app()
 
 main()
+    

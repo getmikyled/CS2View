@@ -1,11 +1,12 @@
-from distutils.command.upload import upload
+from twine.commands.upload import upload
 
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import *
 
 from styles import CS2ViewStyles
-from .widgets import Header, ButtonPanel, Panel, StackedWidgetStateMachine, ContentPanel, FileSelector, StringField, \
-    BottomRightButton
+from .widgets.main import Header, StackedWidgetStateMachine
+from .widgets.panels import ButtonPanel, Panel, ContentPanel
+from .widgets.input import FileSelector, StringField, BottomRightButton
 
 
 class Home(QWidget):
@@ -37,8 +38,8 @@ class Home(QWidget):
 
         # Create Button panel
         self.button_panel = ButtonPanel()
-        self.button_panel.create_button("Upload New CS2 '.demo' File", lambda: self.stacked_widget_state_machine.set_widget(self.upload_demo_file_widget))
-        self.button_panel.create_button("Open Recent '.demo' File", lambda: self.stacked_widget_state_machine.set_widget(self.open_recent_demo_file_widget))
+        self.button_panel.create_button("Upload New CS2 '.dem' File", lambda: self.stacked_widget_state_machine.set_widget(self.upload_demo_file_widget))
+        self.button_panel.create_button("Open Recent '.dem' File", lambda: self.stacked_widget_state_machine.set_widget(self.open_recent_demo_file_widget))
 
         # Create main panel
         self.main_panel = Panel()
@@ -63,7 +64,7 @@ class Home(QWidget):
 
     def __create_upload_demo_file_widget(self) -> QWidget:
         '''Creates and returns the Upload Demo File Widget'''
-        upload_demo_file_widget = ContentPanel("Upload New CS2 '.demo' File")
+        upload_demo_file_widget = ContentPanel("Upload New CS2 '.dem' File")
 
         self.file_selector = FileSelector()
         upload_demo_file_widget.panel.layout().addWidget(self.file_selector)
@@ -78,7 +79,7 @@ class Home(QWidget):
 
     def __create_open_recent_demo_file_widget(self) -> QWidget:
         '''Creates and returns the Upload Demo File Widget'''
-        open_recent_demo_file_widget = ContentPanel("Open Recent CS2 '.demo' File")
+        open_recent_demo_file_widget = ContentPanel("Open Recent CS2 '.dem' File")
 
         return open_recent_demo_file_widget
 
