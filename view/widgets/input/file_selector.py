@@ -1,15 +1,15 @@
-from tokenize import String
-
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy, QLabel, QLineEdit, QPushButton, QFileDialog
+from PyQt5.QtWidgets import QPushButton, QFileDialog
 from styles import CS2ViewStyles
-from view.widgets import StringField
+from .string_field import StringField
 
 class FileSelector(StringField):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, fileFilter='All Files (*)'):
         super().__init__(parent, 'Select File')
+
+        self.file_filter = fileFilter
 
         # Browse file button
         self.browse_file_button = QPushButton()
@@ -21,6 +21,6 @@ class FileSelector(StringField):
         self.layout().addWidget(self.browse_file_button)
 
     def open_file_dialog(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select a File", "", "Demo Files (*.demo);;All Files (*)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Select a File", "", self.file_filter)
         if file_path:
             self.line_edit.setText(file_path)

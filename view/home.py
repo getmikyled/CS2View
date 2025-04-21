@@ -66,7 +66,7 @@ class Home(QWidget):
         '''Creates and returns the Upload Demo File Widget'''
         upload_demo_file_widget = ContentPanel("Upload New CS2 '.dem' File")
 
-        self.file_selector = FileSelector()
+        self.file_selector = FileSelector(fileFilter="Demo Files (*.dem);;All Files (*)")
         upload_demo_file_widget.panel.layout().addWidget(self.file_selector)
 
         self.match_name = StringField(text='Match Name')

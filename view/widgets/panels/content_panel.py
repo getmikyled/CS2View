@@ -3,7 +3,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 
 from styles import CS2ViewStyles
-from view.widgets import Panel
+from view.widgets.panels import Panel
 
 class ContentPanel(QWidget):
 

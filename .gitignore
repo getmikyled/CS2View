@@ -8,4 +8,6 @@ model/__pycache__/*
 *.dem
 .vscode
 .DS_Store
-
+view/widgets/main/__pycache__/*
+view/widgets/panels/__pycache__/*
+view/widgets/input/__pycache__/*

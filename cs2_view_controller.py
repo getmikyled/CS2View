@@ -11,12 +11,14 @@ class CS2ViewController:
 
     @classmethod
     def __new__(cls, *args, **kwargs):
+        '''Set up singleton'''
         if cls._instance is None:
             cls._instance = super().__new__(*args, **kwargs)
             cls._instance._initialized = False
         return cls._instance
 
     def __init__(self):
+        '''Initializes the controller if it does not exist'''
         # Check if DemoLibrary has been initialized
         if not self._initialized:
             self._demo_library = DemoLibrary()
@@ -27,12 +29,10 @@ class CS2ViewController:
         self.window = CS2ViewWindow()
 
         # Register home callbacks
-        self.window.home.upload_file_button.button.connect(lambda: self.upload_new_demo_file(self.window.home.file_selector.line_edit))
+        self.window.home.upload_file_button.button.clicked.connect(lambda: self.upload_new_demo_file(self.window.home.file_selector.line_edit))
 
-        self.window.setWidget(self.window.home)
+        self.window.set_widget(self.window.home)
         self.window.show()
-
-
 
         sys.exit(app.exec())
 

@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from view import *
-from view.widgets import TitleBar, Toolbar, SlidingMenu, StackedWidgetStateMachine
+from view.widgets.main import TitleBar, Toolbar, SlidingMenu, StackedWidgetStateMachine
 from styles import CS2ViewStyles
 
 class CS2ViewWindow(QMainWindow):
