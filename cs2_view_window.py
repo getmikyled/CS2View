@@ -1,6 +1,5 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
-from view import *
 from view.widgets.main import TitleBar, Toolbar, SlidingMenu, StackedWidgetStateMachine
 from styles import CS2ViewStyles
 
@@ -33,32 +32,22 @@ class CS2ViewWindow(QMainWindow):
         layout.addWidget(self.title_bar) # Add title bar widget to central layout
 
         # Create Tool Bar
-        self.tool_bar = Toolbar()
-        layout.addWidget(self.tool_bar)
+        self.toolbar = Toolbar()
+        layout.addWidget(self.toolbar)
 
         # Create Widget Stack
         self.stack = StackedWidgetStateMachine()
         self.stack.setObjectName("Stack")
         self.stack.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.stack.setContentsMargins(10, 10, 10, 10)
-        layout.addWidget(self.stack, stretch=1) # Add stack widget to central layout
-
-        # Add home view to widget stack
-        self.home = Home()
-        home_widget_state = self.stack.addWidget(self.home)
-        home_widget_state.on_entered_signal.connect(lambda: self.tool_bar.menu_button.setVisible(False))
-        home_widget_state.on_exited_signal.connect(lambda: self.tool_bar.menu_button.setVisible(True))
         self.stack.setStyleSheet(CS2ViewStyles.STACK_STYLES)
-
-        self.data_view = QWidget()
-        data_view_widget_state = self.stack.addWidget(self.data_view)
-        self.data_view.setObjectName("DataView")
+        layout.addWidget(self.stack, stretch=1) # Add stack widget to central layout
 
         # Create Side Menu Bar
         # NOTE: CREATE LAST SO THAT ITS ON TOP
         self.menu = SlidingMenu(self.centralWidget())
         self.menu.setGeometry(CS2ViewStyles.MENU_OUT_POSITION)
-        self.tool_bar.menu_button.clicked.connect(self.menu.trigger_slide_animation)
+        self.toolbar.menu_button.clicked.connect(self.menu.trigger_slide_animation)
 
     def set_widget(self, widget):
         self.stack.set_widget(widget)

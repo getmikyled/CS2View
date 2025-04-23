@@ -26,3 +26,5 @@ class ButtonPanel(Panel):
             button.clicked.connect(onClickedFunc)
 
         self.layout().addWidget(button)
+
+        return button

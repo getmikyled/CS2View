@@ -1,8 +1,7 @@
-
-from cs2_view_controller import CS2ViewController
+from controller.cs2_view_controller import CS2ViewController
 
 def main():
-    CS2ViewController().initialize_app()
+    CS2ViewController()
 
 main()
     

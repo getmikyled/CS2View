@@ -11,3 +11,4 @@ model/__pycache__/*
 view/widgets/main/__pycache__/*
 view/widgets/panels/__pycache__/*
 view/widgets/input/__pycache__/*
+controller/__pycache__/*
