@@ -39,15 +39,18 @@ class CS2ViewWindow(QMainWindow):
         self.stack = StackedWidgetStateMachine()
         self.stack.setObjectName("Stack")
         self.stack.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.stack.setContentsMargins(10, 10, 10, 10)
+        self.stack.setContentsMargins(0, 0, 0, 0)
         self.stack.setStyleSheet(CS2ViewStyles.STACK_STYLES)
         layout.addWidget(self.stack, stretch=1) # Add stack widget to central layout
 
         # Create Side Menu Bar
         # NOTE: CREATE LAST SO THAT ITS ON TOP
+        '''
+        Note: NO LONGER NEEDED
         self.menu = SlidingMenu(self.centralWidget())
         self.menu.setGeometry(CS2ViewStyles.MENU_OUT_POSITION)
         self.toolbar.menu_button.clicked.connect(self.menu.trigger_slide_animation)
+        '''
 
     def set_widget(self, widget):
         self.stack.set_widget(widget)

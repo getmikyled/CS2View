@@ -1,5 +1,5 @@
-from view.widgets.main.title_bar import TitleBar
-from view.widgets.panels.button_panel import ButtonPanel
-from view.widgets.input.file_selector import FileSelector
+import view.widgets.panels
+import view.widgets.main
+import view.widgets.input
 
-__all__ = ["TitleBar","FileSelector"]
+__all__ = ["panels", "main", "input"]

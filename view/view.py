@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QSizePolicy, QVBoxLayout
 from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtCore import Qt
 
 from styles import CS2ViewStyles
 
@@ -10,7 +11,7 @@ class View(QWidget):
         # Set widget properties
         self.setObjectName('Page')
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setContentsMargins(10, 10, 10, 10)
+        self.setContentsMargins(0, 0, 0, 0)
 
         # Set styles
         self.setAutoFillBackground(True)
@@ -21,5 +22,6 @@ class View(QWidget):
         # Create and set layout
         layout = QVBoxLayout()
         self.setLayout(layout)
+        self.layout().setAlignment(Qt.AlignTop)
         self.layout().setContentsMargins(0, 0, 0, 0)
         self.layout().setSpacing(0)

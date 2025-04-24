@@ -131,7 +131,7 @@ class CS2ViewStyles:
             margin: 0px;
             background-color: {PRIMARY_COLOR};
             color: {FONT_COLOR};
-            padding: 0 0 0px 0;
+            padding: 0;
             margin: 0;
         }}
         
@@ -139,3 +139,56 @@ class CS2ViewStyles:
             background-color: {HIGHLIGHT_COLOR};
         }}
     '''
+
+    SHELF_HEIGHT = 75
+    SHELF_ITEM_SIZE = 50
+
+    SHELF_STYLES = f'''
+
+        QPushButton {{
+            padding: 0px;
+            margin: 0px;
+            background-color: {PRIMARY_COLOR};
+            padding: 0;
+            margin: 0;
+        }}
+        
+        QPushButton::hover {{
+            background-color: {HIGHLIGHT_COLOR};
+        }}
+    '''
+
+    TABLE_STYLES = f"""
+        QTableWidget {{
+            background-color: {SECONDARY_COLOR};
+            color: white;
+            gridline-color: {PRIMARY_COLOR};
+            border: none;
+            font-size: 14px;
+        }}
+
+        QHeaderView::section {{
+            background-color: #333;
+            color: #eee;
+            padding: 4px;
+            border: none;
+        }}
+        
+        QTableCornerButton::section {{
+            background-color: {PRIMARY_COLOR};
+            border: none;
+        }}
+    
+        QTableWidget::item:selected {{
+            background-color: {HIGHLIGHT_COLOR};
+            color: white;
+        }}
+        
+        QAbstractScrollArea::corner {{
+            background-color: {PRIMARY_COLOR};
+        }}
+        
+        QScrollBar:vertical, QScrollBar:horizontal {{
+            background: {PRIMARY_COLOR};
+        }}
+    """

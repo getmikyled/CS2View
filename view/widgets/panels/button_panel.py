@@ -5,8 +5,8 @@ from styles import CS2ViewStyles
 
 class ButtonPanel(Panel):
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, parent=None, width=400, expanding=True):
+        super().__init__(parent=parent, expanding=expanding)
 
         # Set widget properties
         self.setObjectName('ButtonPanel')
@@ -15,15 +15,15 @@ class ButtonPanel(Panel):
         self.setStyleSheet(CS2ViewStyles.BUTTON_PANEL_STYLES)
 
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
-        self.setFixedWidth(400)
+        self.setFixedWidth(width)
 
-    def create_button(self, text, onClickedFunc=None):
+    def create_button(self, text, on_clicked_func=None):
         '''Creates a new button of specified input and is added to the panel'''
         button = QPushButton(text)
         button.setObjectName('ButtonPanelButton')
 
-        if onClickedFunc is not None:
-            button.clicked.connect(onClickedFunc)
+        if on_clicked_func is not None:
+            button.clicked.connect(on_clicked_func)
 
         self.layout().addWidget(button)
 

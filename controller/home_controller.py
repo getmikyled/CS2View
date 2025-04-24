@@ -20,6 +20,8 @@ class HomeController(SubController):
             lambda: self.parent_controller.upload_new_demo_file(self.parent_controller.home_view.file_selector.line_edit.text())
         )
 
+        '''
+        Removed since menu button was removed
         # On view entered
         self.widget_state.on_entered_signal.connect(
             # Set menu button in tool bar to not visible
@@ -31,3 +33,4 @@ class HomeController(SubController):
             # Set menu button in tool bar to visible
             lambda: self.parent_controller.window.toolbar.menu_button.setVisible(True)
         )
+        '''

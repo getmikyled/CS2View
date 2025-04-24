@@ -11,6 +11,7 @@ class Panel(QWidget):
 
         # Set properties/styles
         self.setAutoFillBackground(True)
+
         palette = QPalette()
         palette.setColor(QPalette.Window, color)
         self.setPalette(palette)
