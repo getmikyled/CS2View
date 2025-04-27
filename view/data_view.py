@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout
 from .view import View
 from .widgets.panels import ButtonPanel, TablePanel
 from .widgets.main import Shelf
+from data_view import *
 
 class DataView(View):
 

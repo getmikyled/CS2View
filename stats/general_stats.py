@@ -5,7 +5,7 @@ import dem
 if dem.demo is None:
     dem.parse_demo('test.dem')
 # dem.parse_demo('test.dem')
-
+pl.Config.set_tbl_rows(30)  
 
 def get_adr(player_name=None, side=None):
     '''
@@ -140,7 +140,55 @@ def get_player_kills():
     pass
     print(dem.demo.kills.columns)
     return dem.demo.kills
-    
+
+
+def get_all_players():
+    '''
+    Returns a tuple of lists
+        list 1 has all the members of team1, list2 has all the members of team2
+        
+    '''
+    players = adr(dem.demo)
+
+    players = players.filter(pl.col('side') != 'all')
+
+    full_half = players.filter(pl.col('n_rounds') == 12)
+
+    side_counts = full_half.group_by('side').agg(
+        pl.len().alias('num_players')
+    )
+
+    team1_side = (
+        side_counts.sort('num_players', descending=True)
+        .select('side')
+        .to_series()
+        .to_list()[0]
+    )
+
+    team2_side = (
+        side_counts.filter(pl.col('side') != team1_side)
+        .select('side')
+        .to_series()
+        .to_list()[0]
+    )
+
+    team1_players = (
+        full_half.filter(pl.col('side') == team1_side)
+        .select('name')
+        .unique()
+        .to_series()
+        .to_list()
+    )
+
+    team2_players = (
+        full_half.filter(pl.col('side') == team2_side)
+        .select('name')
+        .unique()
+        .to_series()
+        .to_list()
+    )
+
+    return sorted(team1_players), sorted(team2_players)
     
 
 # quick test
@@ -151,4 +199,5 @@ if __name__ == '__main__':
     # print(ka)
     # ad = get_adr('ropz')
     # print(ad)
-    print(get_player_kills())
+    # print(get_player_kills())
+    print(get_all_players())
