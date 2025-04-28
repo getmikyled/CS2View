@@ -1,22 +1,18 @@
 from . import *
 import os
 
+
 class DemoLibrary:
-
-    _parsed_demos = None
-    _current_demo_data = None
-
     def __init__(self):
-        """ Initializes demo library"""
         self._parsed_demos = {}
-        self.current_demo_data = None
-        pass
+        self._current_demo_data = None
 
     def upload_new_demo_file(self, file_path):
-        """Upload new demo file into the application's model in form of {file_name : parsed_demo}"""
+        """Upload and parse a new demo file into the library."""
         file_name = os.path.basename(file_path)
-        self.current_demo_data = ParsedDemo(file_path)
-        self._parsed_demos[file_name] = self.current_demo_data
+        parsed_demo = ParsedDemo(file_path)  # create a ParsedDemo
+        self._parsed_demos[file_name] = parsed_demo  # store it directly
+        self._current_demo_data = parsed_demo  # update current demo
 
     @property
     def current_demo_data(self):
@@ -27,7 +23,13 @@ class DemoLibrary:
         self._current_demo_data = value
 
     def get_demo_data(self, file_path):
-        """Returns demo file defined by file_name. Demo file must be parsed and in the library already.
-        Note: At the moment, parameter is in file_path and is converted to name here, but is open to change for preference."""
+        """Returns parsed demo object given a file path."""
         file_name = os.path.basename(file_path)
-        return self._parsed_demos[file_name]
+        return self._parsed_demos.get(file_name)
+    
+    def __getitem__(self, file_name):
+        """
+        Allows access to parsed demos using the file name.
+            Example: demo_library['demo.dem']
+        """
+        return self._parsed_demos.get(file_name)
