@@ -63,6 +63,11 @@ class CS2ViewController:
 
         self.window.stack.set_widget(self.data_view)
 
+    def set_demo_file(self, parsed_demo):
+        self.data_controller.load_demo(parsed_demo)
+
+        self.window.stack.set_widget(self.data_view)
+
     def get_demo_data(self, file_path):
         return self._demo_library.get_demo_data(file_path)
 
@@ -76,6 +81,7 @@ class CS2ViewController:
     def on_open_recent_file_action_triggered(self):
         self.window.set_widget(self.home_view)
         self.home_controller.set_widget(self.home_view.open_recent_file_widget)
+        self.home_controller.refresh_recent_files()
 
     def on_documentation_action_triggered(self):
         url = QUrl('https://docs.google.com/document/d/1RAqIRo2O7rLT9-u1pLzBo7P7TmfK4t5fGA6AnJOGEME/edit?usp=sharing')

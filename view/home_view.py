@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 
 from .view import View
 from .widgets.main import Header, StackedWidgetStateMachine
-from .widgets.panels import ButtonPanel, Panel, ContentPanel
+from .widgets.panels import ButtonPanel, Panel, ContentPanel, TablePanel
 from .widgets.input import FileSelector, BottomRightButton
 
 class HomeView(View):
@@ -35,8 +35,10 @@ class HomeView(View):
         self.upload_demo_file_widget = self.__create_upload_demo_file_widget()
         self.substack.addWidget(self.upload_demo_file_widget)
 
-        self.open_recent_file_widget = self.__create_open_recent_demo_file_widget()
+        self.open_recent_file_widget = self.__create_open_recent_file_widget()
         self.substack.addWidget(self.open_recent_file_widget)
+        self.open_recent_file_table_panel = TablePanel()
+        self.open_recent_file_widget.panel.layout().addWidget(self.open_recent_file_table_panel)
 
         # Add widgets to layouts
         self.layout().addWidget(Header())
@@ -56,7 +58,7 @@ class HomeView(View):
 
         return upload_demo_file_widget
 
-    def __create_open_recent_demo_file_widget(self) -> QWidget:
+    def __create_open_recent_file_widget(self) -> QWidget:
         '''Creates and returns the Upload Demo File Widget'''
         open_recent_demo_file_widget = ContentPanel("Open Recent CS2 '.dem' File")
 
