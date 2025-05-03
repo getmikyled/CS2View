@@ -41,14 +41,14 @@ class TitleBar(QWidget):
         # Minimize Window Button
         minimizeWindowButton = QPushButton()
         minimizeWindowButton.setIcon(QIcon('icons/minimize_window_icon.png'))
-        minimizeWindowButton.setStyleSheet(f'background: {CS2ViewStyles.PRIMARY_COLOR}')
+        minimizeWindowButton.setStyleSheet(f'background: {CS2ViewStyles.PRIMARY_COLOR}; background-image: none; border-style: none;')
         minimizeWindowButton.setFixedSize(40, 40)
         minimizeWindowButton.clicked.connect(self.on_minimize_window_button_clicked.emit)
 
         # Close Window Button
         closeWindowButton = QPushButton()
         closeWindowButton.setIcon(QIcon('icons/close_window_icon.png'))
-        closeWindowButton.setStyleSheet(f'background: {CS2ViewStyles.PRIMARY_COLOR}')
+        closeWindowButton.setStyleSheet(f'background: {CS2ViewStyles.PRIMARY_COLOR}; background-image: none; border-style: none;')
         closeWindowButton.setFixedSize(40, 40)
         closeWindowButton.clicked.connect(self.on_close_window_button_clicked.emit)
 

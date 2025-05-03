@@ -50,12 +50,16 @@ class CS2ViewStyles:
         #MenuButton {{
             margin: 0px 0px 0px 0px;
             background-color: {PRIMARY_COLOR};
+            background-image: none;
+            border-style: none;
         }}
         
         #ToolbarButton {{
                 color: {FONT_COLOR};
                 background-color: {PRIMARY_COLOR};    
                 font-size: 18px;
+                background-image: none;
+                border-style: none;
         }}
             
         #ToolbarButton::menu-indicator {{
@@ -64,7 +68,7 @@ class CS2ViewStyles:
         }}
     '''
 
-    BUTTON_PANEL_HEIGHT = '50px'
+    BUTTON_PANEL_HEIGHT = '40px'
 
     BUTTON_PANEL_STYLES = f'''
     
@@ -74,6 +78,8 @@ class CS2ViewStyles:
             height: {BUTTON_PANEL_HEIGHT};
             text-align: left;
             padding: 0px 0px 0px 10px;
+            background-image: none;
+            border-style: none;
         }}
             
         #ButtonPanelButton:hover, #ButtonPanelButton:disabled {{
@@ -133,6 +139,8 @@ class CS2ViewStyles:
             color: {FONT_COLOR};
             padding: 0;
             margin: 0;
+            background-image: none;
+            border-style: none;
         }}
         
         QPushButton::hover {{
@@ -151,6 +159,8 @@ class CS2ViewStyles:
             background-color: {PRIMARY_COLOR};
             padding: 0;
             margin: 0;
+            background-image: none;
+            border-style: none;
         }}
         
         QPushButton::hover {{

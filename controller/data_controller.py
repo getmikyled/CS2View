@@ -9,8 +9,6 @@ class DataController(SubController):
         super().__init__(model, view, parent_controller, widget_state)
         demo = None
         self.current_table = ''
-        
-        # self.view.add_player_buttons(, self.on_all_players_button_clicked, self.on_player_button_clicked)
 
         # Set up table
         self.view.table_panel.table.setRowCount(10)
@@ -32,7 +30,9 @@ class DataController(SubController):
         self.view.add_player_buttons(
             player_list,
             self.on_all_players_button_clicked,
-            self.on_player_button_clicked,
+            self.on_terrorists_button_clicked,
+            self.on_counter_terrorists_button_clicked,
+            self.on_player_button_clicked
         )
         
         print(self.current_table)
@@ -82,7 +82,6 @@ class DataController(SubController):
             self.view.table_panel.table.setColumnWidth(column, 152)
 
     def on_all_players_button_clicked(self):
-        print('on_all_players_button_clicked')
         if self.current_table == 'adr':
             self.load_adr(self.model._current_demo_data)
         elif self.current_table == 'kast':
@@ -90,8 +89,15 @@ class DataController(SubController):
         elif self.current_table == 'rating':
             self.load_rating(self.model._current_demo_data)
 
+    def on_terrorists_button_clicked(self):
+        print('On terrorists button clicked')
+        pass
+
+    def on_counter_terrorists_button_clicked(self):
+        print('On counter terrorists button clicked')
+        pass
+
     def on_player_button_clicked(self, player):
-        print(f'on_player_button_clicked - {player}')
         if self.current_table == 'adr':
             self.load_adr(self.model._current_demo_data, player_name=player)
         elif self.current_table == 'kast':

@@ -39,10 +39,15 @@ class DataView(View):
         self.table_panel = TablePanel()
         panel_container.layout().addWidget(self.table_panel)
 
-    def add_player_buttons(self, players, all_players_func, player_func):
+    def add_player_buttons(self, players, all_players_func, t_func, ct_func, player_func):
         """Populates the player button panel with all the players"""
         # First add view all players button
         self.player_button_panel.create_button('All Players', all_players_func)
+        self.player_button_panel.create_button('Terrorists', t_func)
+        self.player_button_panel.create_button('Counter-Terrorists', ct_func)
+        spacer = QWidget(self)
+        spacer.setFixedHeight(10)
+        self.player_button_panel.layout().addWidget(spacer)
 
         # Then add all players
         for player in players:

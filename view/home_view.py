@@ -1,6 +1,3 @@
-# What is this for again?
-from twine.commands.upload import upload
-
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import *
 

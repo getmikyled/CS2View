@@ -28,6 +28,7 @@ class CS2ViewController:
             self._demo_library = DemoLibrary()
 
             # Start application
+            QApplication.setStyle('Fusion')
             app = QApplication(sys.argv)
             self.window = CS2ViewWindow()
 
