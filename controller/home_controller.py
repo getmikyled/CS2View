@@ -7,12 +7,12 @@ class HomeController(SubController):
 
         # Upload demo file button callback
         self.view.upload_demo_file_widget_button.clicked.connect(
-            lambda: self.view.substack.set_widget(self.view.upload_demo_file_widget)
+            lambda: self.set_widget(self.view.upload_demo_file_widget)
         )
 
         # Open recent demo file button callback
         self.view.open_recent_demo_file_widget_button.clicked.connect(
-            lambda: self.view.substack.set_widget(self.view.open_recent_demo_file_widget)
+            lambda: self.set_widget(self.view.open_recent_file_widget)
         )
 
         # On upload file button clicked
@@ -34,3 +34,6 @@ class HomeController(SubController):
             lambda: self.parent_controller.window.toolbar.menu_button.setVisible(True)
         )
         '''
+
+    def set_widget(self, widget):
+        self.view.substack.set_widget(widget)

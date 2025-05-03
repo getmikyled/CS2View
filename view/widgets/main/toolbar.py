@@ -32,13 +32,17 @@ class Toolbar(QWidget):
         # Add file menu to toolbar
         file_menu = self.__create_qmenu()
         file_button = self.__create_tool_button("File", file_menu)
-        file_menu.addAction(QAction("Option 1", file_button))
+        self.upload_new_file_action = QAction("Upload New File", file_button)
+        self.open_recent_file_action = QAction("Open Recent File", file_button)
+        file_menu.addAction(self.upload_new_file_action)
+        file_menu.addAction(self.open_recent_file_action)
         layout.addWidget(file_button)
 
         # Add help menu to toolbar
         help_menu = self.__create_qmenu()
         help_button = self.__create_tool_button("Help", help_menu)
-        help_menu.addAction(QAction("Option 1", help_button))
+        self.documentation_action = QAction("Documentation", help_button)
+        help_menu.addAction(self.documentation_action)
         layout.addWidget(help_button)
 
         # Spacer

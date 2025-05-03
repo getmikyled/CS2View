@@ -35,8 +35,8 @@ class HomeView(View):
         self.upload_demo_file_widget = self.__create_upload_demo_file_widget()
         self.substack.addWidget(self.upload_demo_file_widget)
 
-        self.open_recent_demo_file_widget = self.__create_open_recent_demo_file_widget()
-        self.substack.addWidget(self.open_recent_demo_file_widget)
+        self.open_recent_file_widget = self.__create_open_recent_demo_file_widget()
+        self.substack.addWidget(self.open_recent_file_widget)
 
         # Add widgets to layouts
         self.layout().addWidget(Header())

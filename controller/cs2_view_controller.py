@@ -1,12 +1,14 @@
 import sys
 
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QApplication
 
 from view import DataView
 from .home_controller import HomeController
 from .data_controller import DataController
 from cs2_view_window import CS2ViewWindow
-from model import ParsedDemo, DemoLibrary
+from model import DemoLibrary
 from view import HomeView
 
 class CS2ViewController:
@@ -31,6 +33,10 @@ class CS2ViewController:
             QApplication.setStyle('Fusion')
             app = QApplication(sys.argv)
             self.window = CS2ViewWindow()
+
+            self.window.toolbar.upload_new_file_action.triggered.connect(self.on_upload_new_file_action_triggered)
+            self.window.toolbar.open_recent_file_action.triggered.connect(self.on_open_recent_file_action_triggered)
+            self.window.toolbar.documentation_action.triggered.connect(self.on_documentation_action_triggered)
 
             # Set home and controller
             self.home_view = HomeView()
@@ -63,3 +69,14 @@ class CS2ViewController:
     def get_current_demo_data(self):
         return self._demo_library.current_demo_data
 
+    def on_upload_new_file_action_triggered(self):
+        self.window.set_widget(self.home_view)
+        self.home_controller.set_widget(self.home_view.upload_demo_file_widget)
+
+    def on_open_recent_file_action_triggered(self):
+        self.window.set_widget(self.home_view)
+        self.home_controller.set_widget(self.home_view.open_recent_file_widget)
+
+    def on_documentation_action_triggered(self):
+        url = QUrl('https://docs.google.com/document/d/1RAqIRo2O7rLT9-u1pLzBo7P7TmfK4t5fGA6AnJOGEME/edit?usp=sharing')
+        QDesktopServices.openUrl(url)
