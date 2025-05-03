@@ -1,11 +1,16 @@
 from .sub_controller import SubController
+from model.parsed_demo import ParsedDemo
+from PyQt5.QtWidgets import QTableWidgetItem
+import polars as pl
 
 class DataController(SubController):
 
     def __init__(self, model, view, parent_controller, widget_state):
         super().__init__(model, view, parent_controller, widget_state)
-
-        self.view.add_player_buttons(['bruh', 'no', 'dude'], self.on_all_players_button_clicked, self.on_player_button_clicked)
+        demo = None
+        self.current_table = ''
+        
+        # self.view.add_player_buttons(, self.on_all_players_button_clicked, self.on_player_button_clicked)
 
         # Set up table
         self.view.table_panel.table.setRowCount(10)
@@ -18,11 +23,78 @@ class DataController(SubController):
         for column in range(self.view.table_panel.table.columnCount()):
             self.view.table_panel.table.setColumnWidth(column, 152)
 
-        # To clear table
+        # To clear tabl
         # self.view.table_panel.table.clear()
+    def load_demo(self, parsed_demo, player_name=None, side=None):
+        self.fill_table(parsed_demo.get_adr, player_name=player_name, side=side, table_key='adr')
+        
+        player_list = parsed_demo.get_all_players(single_list=True)
+        self.view.add_player_buttons(
+            player_list,
+            self.on_all_players_button_clicked,
+            self.on_player_button_clicked,
+        )
+        
+        print(self.current_table)
+        
+    def load_adr(self, parsed_demo, player_name=None, side=None):
+        self.fill_table(parsed_demo.get_adr, player_name=player_name, side=side, table_key='adr')
+        
+    def load_kast(self, parsed_demo, player_name=None, side=None):
+        self.fill_table(parsed_demo.get_kast, player_name=player_name, side=side, table_key='kast')
+        
+    def load_rating(self, parsed_demo, player_name=None, side=None):
+        self.fill_table(parsed_demo.get_rating, player_name=player_name, side=side, table_key='rating')
+        
+    def fill_table(self, func, *, player_name=None, side=None, table_key=None):
+        '''
+        Fills the table with data from the given function, filters by player name and side if provided
+        '''
+        parsed_demo = func.__self__
+
+        # Clear only the cell contents, not the entire widget/layout
+        tbl = self.view.table_panel.table
+        tbl.clearContents()
+
+        data = func(player_name=player_name, side=side)
+
+        # Set rows/cols/headers
+        n_rows, n_cols = data.shape
+        tbl.setRowCount(n_rows)
+        tbl.setColumnCount(n_cols)
+        tbl.setHorizontalHeaderLabels(data.columns)
+        self.adjust_table()
+
+        # Fill cells
+        for i, row in enumerate(data.rows()):
+            for j, val in enumerate(row):
+                tbl.setItem(i, j, QTableWidgetItem(str(val)))
+
+        self.current_table = table_key
+                
+    
+    def adjust_table(self):
+        # Adjust table size so its readable
+        for row in range(self.view.table_panel.table.rowCount()):
+            self.view.table_panel.table.setRowHeight(row, 30)
+
+        for column in range(self.view.table_panel.table.columnCount()):
+            self.view.table_panel.table.setColumnWidth(column, 152)
 
     def on_all_players_button_clicked(self):
         print('on_all_players_button_clicked')
+        if self.current_table == 'adr':
+            self.load_adr(self.model._current_demo_data)
+        elif self.current_table == 'kast':
+            self.load_kast(self.model._current_demo_data)
+        elif self.current_table == 'rating':
+            self.load_rating(self.model._current_demo_data)
 
     def on_player_button_clicked(self, player):
         print(f'on_player_button_clicked - {player}')
+        if self.current_table == 'adr':
+            self.load_adr(self.model._current_demo_data, player_name=player)
+        elif self.current_table == 'kast':
+            self.load_kast(self.model._current_demo_data, player_name=player)
+        elif self.current_table == 'rating':
+            self.load_rating(self.model._current_demo_data, player_name=player)

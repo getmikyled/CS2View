@@ -51,6 +51,8 @@ class CS2ViewController:
 
     def upload_new_demo_file(self, file_path):
         self._demo_library.upload_new_demo_file(file_path)
+        parsed_demo = self._demo_library.get_demo_data(file_path)
+        self.data_controller.load_demo(parsed_demo)
 
         self.window.stack.set_widget(self.data_view)
 

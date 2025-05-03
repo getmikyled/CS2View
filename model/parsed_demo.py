@@ -5,7 +5,6 @@ import polars as pl
 
 class ParsedDemo:
 
-    ''' INSERT WHATEVER YOUR PARSED DEMO STUFF GOT HERE'''
     def __init__(self, file_path):
         self.name = os.path.basename(file_path)
         self.demo = Demo(file_path)
@@ -33,6 +32,10 @@ class ParsedDemo:
             req_adr = req_adr.filter(pl.col('name') == player_name)
         if side is not None:
             req_adr = req_adr.filter(pl.col('side') == side)
+        
+        req_adr = req_adr.with_columns(
+           pl.col('adr').round(2).alias('adr') 
+        )
         
         return req_adr
 
@@ -143,10 +146,13 @@ class ParsedDemo:
         print(self.demo.kills.columns)
         return self.demo.kills
 
-    def get_all_players(self):
+    def get_all_players(self, single_list=False):
         '''
         Returns a tuple of lists
             list 1 has all the members of team1, list2 has all the members of team2
+            
+        Params:
+            single_list: whether to return a single list or two
             
         '''
         players = adr(self.demo)
@@ -188,6 +194,8 @@ class ParsedDemo:
             .to_series()
             .to_list()
         )
-
+        if single_list:
+            return team1_players + team2_players
+        
         return sorted(team1_players), sorted(team2_players)
 
