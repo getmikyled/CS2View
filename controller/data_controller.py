@@ -12,6 +12,11 @@ class DataController(SubController):
         self.current_player = None
         self.current_side = None
 
+        self.view.adr_stats_shelf_item.clicked.connect(self.on_adr_stats_button_clicked)
+        self.view.kast_stats_shelf_item.clicked.connect(self.on_kast_stats_button_clicked)
+        self.view.rating_stats_shelf_item.clicked.connect(self.on_rating_stats_button_clicked)
+        self.view.round_stats_shelf_item.clicked.connect(self.on_round_stats_button_clicked)
+
         # Set up table
         self.view.table_panel.table.setRowCount(10)
         self.view.table_panel.table.setColumnCount(5)
@@ -48,7 +53,7 @@ class DataController(SubController):
         
     def load_adr(self, parsed_demo, player_name=None, side=None):
         self.fill_table(parsed_demo.get_adr, player_name=player_name, side=side, table_key='adr')
-        
+
     def load_kast(self, parsed_demo, player_name=None, side=None):
         self.fill_table(parsed_demo.get_kast, player_name=player_name, side=side, table_key='kast')
         
@@ -129,16 +134,16 @@ class DataController(SubController):
         self.refresh_current_view()
 
     def on_adr_stats_button_clicked(self):
-        pass
+        self.load_adr(self.parsed_demo)
     
     def on_kast_stats_button_clicked(self):
-        pass
+        self.load_kast(self.parsed_demo)
     
     def on_rating_stats_button_clicked(self):
-        pass
+        self.load_rating(self.parsed_demo)
     
     def on_round_stats_button_clicked(self):
-        pass
+        self.load_rounds(self.parsed_demo)
 
     def on_player_button_clicked(self, player):
         if self.current_player == player:
