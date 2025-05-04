@@ -37,7 +37,15 @@ class ParsedDemo:
            pl.col('adr').round(2).alias('adr') 
         )
         
-        return req_adr
+        req_adr = req_adr.with_columns(
+            pl.col('adr').alias('ADR'),
+            pl.col('dmg').alias('Damage'),
+            pl.col('n_rounds').alias('Rounds'),
+            pl.col('side').alias('Side'),
+            pl.col('name').alias('Player')
+        )
+        
+        return req_adr.select(['Player', 'Side', 'Rounds', 'Damage', 'ADR'])
 
     def get_kast(self, player_name=None, side=None, round=None):
         '''
@@ -65,8 +73,16 @@ class ParsedDemo:
             req_kast = req_kast.filter(pl.col('side') == side)
         if round is not None:
             req_kast = req_kast.filter(pl.col('n_rounds') == round)
+            
+        req_kast = req_kast.with_columns(
+            pl.col('kast').round(2).alias('KAST'),
+            pl.col('kast_rounds').alias('KAST Rounds'),
+            pl.col('n_rounds').alias('Rounds'),
+            pl.col('side').alias('Side'),
+            pl.col('name').alias('Player')
+        )
         
-        return req_kast
+        return req_kast.select(['Player', 'Side', 'Rounds', 'KAST Rounds', 'KAST'])
 
     def get_rating(self, player_name=None, side=None, round=None):
         '''
@@ -94,8 +110,16 @@ class ParsedDemo:
             req_rating = req_rating.filter(pl.col('side') == side)
         if round is not None:
             req_rating = req_rating.filter(pl.col('n_rounds') == round)
+            
+        req_rating = req_rating.with_columns(
+            pl.col('rating').alias('Rating'),
+            pl.col('impact').alias('Impact'),
+            pl.col('n_rounds').alias('Rounds'),
+            pl.col('side').alias('Side'),
+            pl.col('name').alias('Player')
+        )
 
-        return req_rating
+        return req_rating.select(['Player', 'Side', 'Rounds', 'Impact', 'Rating'])
 
     def get_round_stats(self):
         '''
@@ -143,7 +167,6 @@ class ParsedDemo:
         return df.with_columns([winner, reason, bomb_site])
 
     def get_player_kills(self):
-        print(self.demo.kills.columns)
         return self.demo.kills
 
     def get_all_players(self, single_list=False):

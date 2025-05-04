@@ -200,4 +200,5 @@ if __name__ == '__main__':
     # ad = get_adr('ropz')
     # print(ad)
     # print(get_player_kills())
-    print(get_all_players())
+    # print(get_all_players())
+    print(get_round_stats())

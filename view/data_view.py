@@ -13,20 +13,25 @@ class DataView(View):
         # Create shelf and shelf items toc hange between data sets
         self.data_shelf = Shelf()
         self.layout().addWidget(self.data_shelf)
-        self.round_equipment_stats_shelf_item = self.data_shelf.add_shelf_item(
-            'Round Equipment Stats',
+        self.adr_stats_shelf_item = self.data_shelf.add_shelf_item(
+            'ADR Stats',
             QIcon('icons/home_icon.png'),
-            'Round Equipment Stats',
+            'ADR Stats',
         )
         self.kast_stats_shelf_item = self.data_shelf.add_shelf_item(
             'KAST Stats',
             QIcon('icons/home_icon.png'),
             'KAST Stats - Kills, Assists, Suicides, Trades'
         )
-        self.kast_stats_shelf_item = self.data_shelf.add_shelf_item(
-            'End Game Statistics',
+        self.rating_stats_shelf_item = self.data_shelf.add_shelf_item(
+            'Rating Stats',
             QIcon('icons/home_icon.png'),
-            'End Game Statistics'
+            'Rating Stats'
+        )
+        self.round_stats_shelf_item = self.data_shelf.add_shelf_item(
+            'Round Stats',
+            QIcon('icons/home_icon.png'),
+            'Round Stats'
         )
 
         panel_container = QWidget(self)
@@ -52,3 +57,14 @@ class DataView(View):
         # Then add all players
         for player in players:
             self.player_button_panel.create_button(player, lambda checked=False, p=player: player_func(p))
+
+    def clear_player_buttons(self):
+        """
+        Remove every button from the player_button_panel by clearing its layout.
+        """
+        layout = self.player_button_panel.layout()
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.setParent(None)
