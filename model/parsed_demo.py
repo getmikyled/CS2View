@@ -160,6 +160,8 @@ class ParsedDemo:
             .then(pl.lit("Counter‑Terrorists Killed"))
             .when(pl.col("Reason") == "bomb_exploded")
             .then(pl.lit("Bomb Exploded"))
+            .when(pl.col("Reason") == "bomb_defused")
+            .then(pl.lit("Bomb Defused"))
             .otherwise(pl.col("Reason"))
             .alias("Reason")
         )
