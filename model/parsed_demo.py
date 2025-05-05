@@ -45,6 +45,8 @@ class ParsedDemo:
             pl.col('name').alias('Player')
         )
         
+        req_adr = req_adr.sort('adr', descending=True)
+        
         return req_adr.select(['Player', 'Side', 'Rounds', 'Damage', 'ADR'])
 
     def get_kast(self, player_name=None, side=None, round=None):
@@ -82,6 +84,8 @@ class ParsedDemo:
             pl.col('name').alias('Player')
         )
         
+        req_kast = req_kast.sort('KAST', descending=True)
+        
         return req_kast.select(['Player', 'Side', 'Rounds', 'KAST Rounds', 'KAST'])
 
     def get_rating(self, player_name=None, side=None, round=None):
@@ -118,6 +122,13 @@ class ParsedDemo:
             pl.col('side').alias('Side'),
             pl.col('name').alias('Player')
         )
+        
+        req_rating = req_rating.with_columns(
+            pl.col('Rating').round(2).alias('Rating'),
+            pl.col('Impact').round(2).alias('Impact')
+        )
+        
+        req_rating = req_rating.sort('Rating', descending=True)
 
         return req_rating.select(['Player', 'Side', 'Rounds', 'Impact', 'Rating'])
 
