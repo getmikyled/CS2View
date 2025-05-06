@@ -21,7 +21,7 @@ class DataView(View):
         self.kast_stats_shelf_item = self.data_shelf.add_shelf_item(
             'KAST Stats',
             QIcon('icons/kast_icon.png'),
-            'KAST Stats - Kills, Assists, Suicides, Trades'
+            'KAST Stats - Kills, Assists, Survives, Trades'
         )
         self.rating_stats_shelf_item = self.data_shelf.add_shelf_item(
             'Rating Stats',
