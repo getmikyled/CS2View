@@ -49,7 +49,7 @@ class DataController(SubController):
             self.on_player_button_clicked
         )
         
-        print(self.current_table)
+        self.view.content_panel.content_title_label.setText('ADR Stats')
         
     def load_adr(self, parsed_demo, player_name=None, side=None):
         self.fill_table(parsed_demo.get_adr, player_name=player_name, side=side, table_key='adr')
@@ -135,15 +135,19 @@ class DataController(SubController):
 
     def on_adr_stats_button_clicked(self):
         self.load_adr(self.parsed_demo)
+        self.view.content_panel.content_title_label.setText('ADR Stats')
     
     def on_kast_stats_button_clicked(self):
         self.load_kast(self.parsed_demo)
+        self.view.content_panel.content_title_label.setText('KAST Stats')
     
     def on_rating_stats_button_clicked(self):
         self.load_rating(self.parsed_demo)
+        self.view.content_panel.content_title_label.setText('Rating Stats')
     
     def on_round_stats_button_clicked(self):
         self.load_rounds(self.parsed_demo)
+        self.view.content_panel.content_title_label.setText('Round Stats')
 
     def on_player_button_clicked(self, player):
         if self.current_player == player:

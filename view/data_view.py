@@ -2,7 +2,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
 from .view import View
-from .widgets.panels import ButtonPanel, TablePanel
+from .widgets.panels import ButtonPanel, TablePanel, ContentPanel
 from .widgets.main import Shelf
 
 class DataView(View):
@@ -15,22 +15,22 @@ class DataView(View):
         self.layout().addWidget(self.data_shelf)
         self.adr_stats_shelf_item = self.data_shelf.add_shelf_item(
             'ADR Stats',
-            QIcon('icons/home_icon.png'),
+            QIcon('icons/adr_icon.png'),
             'ADR Stats',
         )
         self.kast_stats_shelf_item = self.data_shelf.add_shelf_item(
             'KAST Stats',
-            QIcon('icons/home_icon.png'),
+            QIcon('icons/kast_icon.png'),
             'KAST Stats - Kills, Assists, Suicides, Trades'
         )
         self.rating_stats_shelf_item = self.data_shelf.add_shelf_item(
             'Rating Stats',
-            QIcon('icons/home_icon.png'),
+            QIcon('icons/rating_icon.png'),
             'Rating Stats'
         )
         self.round_stats_shelf_item = self.data_shelf.add_shelf_item(
             'Round Stats',
-            QIcon('icons/home_icon.png'),
+            QIcon('icons/round_icon.png'),
             'Round Stats'
         )
 
@@ -41,8 +41,10 @@ class DataView(View):
         self.player_button_panel = ButtonPanel(width=200, expanding=False)
         panel_container.layout().addWidget(self.player_button_panel)
 
+        self.content_panel = ContentPanel('Bruh')
+        panel_container.layout().addWidget(self.content_panel)
         self.table_panel = TablePanel()
-        panel_container.layout().addWidget(self.table_panel)
+        self.content_panel.panel.layout().addWidget(self.table_panel)
 
     def add_player_buttons(self, players, all_players_func, t_func, ct_func, player_func):
         """Populates the player button panel with all the players"""

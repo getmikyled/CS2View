@@ -19,10 +19,10 @@ class ContentPanel(QWidget):
         self.layout().setSpacing(10)
 
         # Add content title text
-        content_title_label = QLabel(title)
-        content_title_label.setObjectName('TitleLabel')
-        content_title_label.setAlignment(Qt.AlignLeft)
-        self.layout().addWidget(content_title_label)
+        self.content_title_label = QLabel(title)
+        self.content_title_label.setObjectName('TitleLabel')
+        self.content_title_label.setAlignment(Qt.AlignLeft)
+        self.layout().addWidget(self.content_title_label)
 
         # Add content panel
         self.panel = Panel(color=QColor(CS2ViewStyles.SECONDARY_COLOR))
