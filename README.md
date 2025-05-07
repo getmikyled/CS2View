@@ -52,3 +52,7 @@ pip install -r requirements.txt
 ## Running
 
 - Running is as simple as `python main.py` in your terminal
+
+## Example Demo
+
+- An example demo can be downloaded at https://drive.google.com/file/d/1gNhNMjm5WK0cMVgDBav_CEKb5sT_rGsY/view 
